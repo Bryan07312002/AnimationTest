@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banner Start</title>
+</head>
+<body>
+    <main>
+        <div class="fade">
+            <div class="content">
+                <h1 id="NameH1"></h1>
+                <p id="DescriptionBanner"></p>
+            </div>
+        </div>
+        <div class="encher"></div>
+    </main>
+</body>
+</html>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@100&display=swap');
+    .encher{
+        height: 500px;
+        width: 100%;
+    }
+    body{
+        overflow-x: hidden;
+        background: black;
+        max-width: 100vw;
+        margin: 0;
+        padding: 0;
+    }
+    body::-webkit-scrollbar{
+        background: gray;
+        width: 10px;
+        border-radius: 10px;
+    }
+    body::-webkit-scrollbar-thumb{
+        background: rgb(0, 0, 0,.25);
+        border-radius: 10px;
+    }
+    body::-webkit-scrollbar-corner{
+        background: red;
+    }
+    main{
+        padding: 0 !important;
+        margin: 0;
+        background-image: url('img.jpg');
+        background-size: cover;
+        height: 95vh;
+        overflow: hidden;
+        animation: BannerSlider 2s forwards normal;
+    }
+    h1{
+        margin: 0;
+        font-size: 3.5rem;
+        font-family: 'Oswald', sans-serif;
+    }
+    p{
+        font-family: 'Roboto Mono', monospace;
+    }
+    .content{
+        width: auto;
+        color: white;
+        margin-top: 40vh;
+        text-align: center;
+        position: absolute;
+        right: 15%;
+        margin-left: 15%;
+        height: 95vh;
+    }
+    .fade{
+        align-items: center;
+        background: linear-gradient(to top,black,transparent);
+        height: 95vh;
+        width: 100vw;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        animation: BannerSlider 2s forwards normal 0s;
+    }
+
+    @keyframes BannerSlider {
+        0%{
+            width: 0%;
+            border-right: solid 200px black;
+        }
+        100%{
+            width: 100%;
+            border-right: solid 80px black;
+        }
+    }
+</style>
+<script>
+    let name = 'Bryan Gabriel Becker'
+    let subTexto = 'Full-Stack developer using:'
+    let WordArray = ['JavaScript','Php','VueJS','Laravel','NodeJS',]
+    let caracterIndex = 1
+    let wordIndex = 0
+    let currentMessage = WordArray[wordIndex]
+    let currentCaracters = ''
+    let directionTypeing = 1
+    setTimeout(()=>{Write(name,'NameH1')},1500)
+    setTimeout(()=>{Write(subTexto,'DescriptionBanner')},1500 + (90*name.length))
+    setTimeout(()=>{
+        let p = document.getElementById('DescriptionBanner')
+        let newTyper = document.createElement('TypeAnimation')
+        p.appendChild(newTyper)
+        setInterval(()=>{ InfiniteWriter()
+    },100)},1500 + (90*name.length) + (90*subTexto.length))
+
+    function Write(text,component){
+        let currentName = text;
+        let nameArray = text.split('')
+        let el = document.getElementById(component)
+        nameArray.forEach((element,index) => {
+            setTimeout(() => {
+                el.innerHTML += element
+            }, 90 * index);
+        });
+    }
+
+    function InfiniteWriter(){
+        const typeAnimation = document.querySelector('TypeAnimation')
+        
+        if(caracterIndex >= currentMessage.length){
+            directionTypeing = directionTypeing*-1
+        }
+        if(caracterIndex === 0){
+            directionTypeing = directionTypeing*-1
+
+            if(wordIndex >= WordArray.length -1){
+                wordIndex = 0
+            }else{
+                wordIndex++
+            }
+        }
+        currentCaracters = currentMessage.slice(0,caracterIndex += directionTypeing)
+        currentMessage = WordArray[wordIndex] + "    "//espaço adcionado para dar uma pausa no fim da palavra antes de apaga-la
+    
+        typeAnimation.textContent = currentCaracters
+    }
+</script>

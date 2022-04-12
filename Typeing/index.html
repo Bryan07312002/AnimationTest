@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typeing</title>
+</head>
+<body>
+    <initial>
+        <div class="cubos">
+            <div class="cubo1"></div>
+            <div class="cubo2"></div>
+            <div class="cubo3"></div>
+            <div class="cubo4"></div>
+            <div class="cubo5"></div>
+        </div>
+    </initial>
+    <main>
+        <span>Text Animation: <TypeAnimation></TypeAnimation></span>
+    </main>
+</body>
+</html>
+<style>
+    body{
+        margin: 0;
+        padding: 0;
+        background-color: black;
+        color: rgb(255,255,255,.75);
+        text-align: center;
+        justify-content: center;
+        font-size: 2rem;
+    }
+    span{
+        border-right: solid 2px white;
+        animation: Cursor 1s infinite normal;
+    }
+    .cubos{
+        width: 100%;
+        height: 200%;
+        display: flex;
+    }
+    .cubo1{
+        width: 20%;
+        height: 100%;
+        background-color: red;
+        border-top-left-radius: 100px;
+        border-top-right-radius: 100px;
+        animation: VaiVem 1.3s infinite normal;
+    }
+    .cubo2{
+        width: 20%;
+        height: 100%;
+        background-color: blue;
+        border-top-left-radius: 100px;
+        border-top-right-radius: 100px;
+        animation: VaiVem 3s infinite normal;
+    }
+    .cubo3{
+        width: 20%;
+        height: 100%;
+        background-color: green;
+        border-top-left-radius: 100px;
+        border-top-right-radius: 100px;
+        animation: VaiVem .5s infinite normal;
+    }
+    .cubo4{
+        width: 20%;
+        height: 100%;
+        background-color: greenyellow;
+        border-top-left-radius: 100px;
+        border-top-right-radius: 100px;
+        animation: VaiVem 2s infinite normal;
+    }
+    .cubo5{
+        width: 20%;
+        height: 100%;
+        background-color: blueviolet;
+        border-top-left-radius: 100px;
+        border-top-right-radius: 100px;
+        animation: VaiVem 1s infinite normal;
+    }
+    initial{
+        position: fixed;
+        display: flex;
+        top: 100%;
+        width: 100vw;
+        height: 100%;
+    }
+
+    .animationIn{
+        animation: LoaderIn 1s forwards normal;
+    }
+    .animationOut{
+        animation: LoaderOut 1s forwards normal;
+    }
+    @keyframes typer {
+        0%{
+            width: 0%;
+        }
+        100%{
+            width: 100%;
+        }
+    }
+    @keyframes VaiVem {
+        0%{
+            transform:translateY();
+        }
+        50%{
+            transform:translateY(5%);
+        }
+        100%{
+            transform:translateY();
+        }
+    }
+    @keyframes LoaderIn {
+        0%{
+            top: 100%;
+        }
+        100%{
+            top: -50%;
+        }
+    }
+    @keyframes LoaderOut {
+        0%{
+            top: -50%;
+        }
+        100%{
+            top: 100%;
+        }
+    }
+    @keyframes Cursor {
+        0%{
+            border-color: rgb(255,255,255,.75);
+        }
+        50%{
+            border-color: black;
+        }
+        100%{
+            border-color: rgb(255,255,255,.75);
+        }
+    }
+</style>
+
+<script>
+    let WordArray = ['JavaScript','Php','VueJS']
+    let caracterIndex = 1
+    let wordIndex = 0
+    let currentMessage = WordArray[wordIndex]
+    let currentCaracters = ''
+    let directionTypeing = 1
+
+    setInterval(()=>{Writer()},200)
+
+
+    window.addEventListener('click',() => {
+        LoaderIn()
+    })
+    
+    function Writer(){
+        const typeAnimation = document.querySelector('typeAnimation')
+        
+        if(caracterIndex >= currentMessage.length){
+            directionTypeing = directionTypeing*-1
+        }
+        if(caracterIndex === 0){
+            directionTypeing = directionTypeing*-1
+
+            if(wordIndex >= WordArray.length -1){
+                wordIndex = 0
+            }else{
+                wordIndex++
+            }
+        }
+        currentCaracters = currentMessage.slice(0,caracterIndex += directionTypeing)
+        currentMessage = WordArray[wordIndex] + "    "//espaço adcionado para dar uma pausa no fim da palavra antes de apaga-la
+    
+        typeAnimation.textContent = currentCaracters
+    }
+
+
+    function LoaderIn(){
+        const animation = document.querySelector('initial')
+        animation.classList.add('animationIn')
+        setTimeout(()=>{
+            animation.classList.add('animationOut')
+            animation.classList.remove('animationIn')
+
+        },1000)
+        setTimeout(
+            animation.classList.remove('animationOut')
+        ,2000)
+    }
+</script>

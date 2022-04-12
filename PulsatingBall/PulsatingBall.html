@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="ball-container">
+        <div class="ball"></div>
+    </div>
+</body>
+</html>
+
+<style>
+    *{
+        padding: 0;
+        margin: 0;
+    }
+    body{
+        min-height: 100vh;
+        min-width: 100vw;
+        background-color: darkslategrey;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .ball-container{
+        background-color: white;
+        height: 10vw;
+        border-radius: 50%;
+        aspect-ratio: 1;
+    }
+    .ball-container:hover{
+        animation: pulse 2s infinite normal;
+    }
+
+    @keyframes pulse {
+        0%{
+            transform: scale(1);
+        }
+        60%{
+            box-shadow: 0 0 0 0 rgb(255, 255, 255,.7);
+            transform: scale(.95);
+        }
+        100%{
+            transform: scale(1);
+            box-shadow: 0 0 0 100px rgb(255, 255, 255,0);
+        }
+    }
+</style>
